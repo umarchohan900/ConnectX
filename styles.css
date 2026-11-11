@@ -1,0 +1,30 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap');
+:root{--bg:#0b0b0d;--panel:#171719;--panel2:#202023;--red:#ef3340;--red2:#ff5964;--text:#f7f5f5;--muted:#a6a1a3;--line:#2c292b}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 80% 0%,#351316 0%,transparent 38%),var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min-height:100vh}
+button{font:inherit}.app-shell{width:min(100%,520px);min-height:100vh;margin:auto;padding:0 20px 100px;position:relative}
+.topbar{height:72px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #ffffff0d}
+.brand{font:700 25px 'Space Grotesk',sans-serif;letter-spacing:-1.2px;color:var(--text);text-decoration:none}.brand b{color:var(--red);font-size:29px}.top-label,.eyebrow{font-size:9px;letter-spacing:2px;color:var(--muted);font-weight:800}.icon-btn{border:1px solid var(--line);border-radius:50%;background:var(--panel);color:white;width:38px;height:38px;font-size:22px}
+main{padding-top:27px}.view{display:none;animation:appear .25s ease}.view.active{display:block}@keyframes appear{from{opacity:.5;transform:translateY(5px)}to{opacity:1;transform:none}}
+.intro{margin:4px 0 20px}.intro h1{font:700 clamp(32px,9vw,43px)/1.05 'Space Grotesk',sans-serif;letter-spacing:-1.8px;margin:8px 0}.intro h1 span{color:var(--red)}.sub{color:var(--muted);font-size:13px;line-height:1.55;margin:8px 0 0}.eyebrow{color:var(--red2);margin:0}.compact{margin-bottom:25px}
+.profile-card{background:linear-gradient(160deg,#242022,#151517 58%);border:1px solid #ffffff12;border-radius:25px;overflow:hidden;box-shadow:0 20px 55px #0008}
+.avatar-art{height:270px;display:grid;place-items:center;position:relative;background:radial-gradient(circle at 50% 48%,#87313a,#3b171c 48%,#1b1416 76%);overflow:hidden}
+.avatar-art:before,.avatar-art:after{content:"";position:absolute;border:1px solid #ff9ba133;border-radius:50%;width:230px;height:230px}.avatar-art:after{width:310px;height:310px}
+.avatar-art span{font:700 100px 'Space Grotesk',sans-serif;color:#fff;text-shadow:0 8px 35px #0008;z-index:1}.avatar-art i{position:absolute;right:27px;top:22px;color:#ffb0b5;font-size:24px}
+.profile-info{padding:18px 19px 8px}.name-line{display:flex;align-items:center;gap:10px}.name-line h2{font:700 23px 'Space Grotesk',sans-serif;margin:0}.sample-tag{font-size:8px;letter-spacing:1px;color:#ff9da4;border:1px solid #75343a;padding:4px 7px;border-radius:20px}.profile-info p{font-size:13px;color:#c1bbbd;line-height:1.5;margin:8px 0 13px}.chips{display:flex;flex-wrap:wrap;gap:7px}.chip{font-size:11px;color:#ffadb2;background:#3a1c20;border:1px solid #5a292f;border-radius:30px;padding:6px 10px}.demo-note{font-size:10px;color:#777174;padding:0 19px 14px;margin:8px 0 0}
+.actions{display:flex;gap:12px;margin-top:16px}.action{flex:1;border-radius:15px;height:54px;font-weight:700;border:1px solid var(--line);background:var(--panel);color:var(--text)}.action span{font-size:21px;vertical-align:-2px;margin-right:6px}.action.primary{background:var(--red);border-color:var(--red);box-shadow:0 8px 25px #ef334033}.action.primary:active{background:#cf2631}.tiny-center{text-align:center;color:#777174;font-size:10px;margin:13px 0}
+.bottom-nav{position:fixed;z-index:5;bottom:0;left:50%;transform:translateX(-50%);width:min(100%,520px);height:76px;padding:8px 10px calc(8px + env(safe-area-inset-bottom));display:flex;justify-content:space-around;background:#111113ed;backdrop-filter:blur(18px);border-top:1px solid #ffffff12}.nav-item{border:0;background:transparent;color:#777174;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-width:64px}.nav-item span{font-size:23px;line-height:1}.nav-item small{font-size:10px;font-weight:600}.nav-item.selected{color:var(--red2)}
+.panel,.safety-card{background:var(--panel);border:1px solid #ffffff0c;border-radius:18px;padding:20px}.panel{text-align:center}.empty-icon{font-size:45px;color:var(--red);margin:10px}.panel h3{margin:5px 0;font:700 19px 'Space Grotesk'}.panel p{color:var(--muted);font-size:13px;line-height:1.5}.safety-list{display:grid;gap:11px}.safety-card{padding:16px}.safety-card b{color:#ff858d;font-size:14px}.safety-card p{color:var(--muted);font-size:12px;line-height:1.55;margin:6px 0 0}.about-panel{padding:27px 22px}.brand-mark{font:700 35px 'Space Grotesk';margin:5px auto 12px}.brand-mark span{color:var(--red)}.about-panel h2{font:700 25px 'Space Grotesk';margin:0}.line{height:1px;background:var(--line);margin:20px 0}.small-muted{font-size:11px!important}.outline-btn{margin-top:12px;border:1px solid #7b343a;background:transparent;color:#ff9ba2;padding:12px 17px;border-radius:12px;font-weight:700}
+.toast{position:fixed;bottom:90px;left:50%;transform:translate(-50%,15px);background:#292326;border:1px solid #573036;color:#fff;padding:11px 16px;border-radius:12px;font-size:12px;opacity:0;pointer-events:none;transition:.2s;z-index:10;max-width:90%;text-align:center}.toast.show{opacity:1;transform:translate(-50%,0)}
+@media(min-height:800px){.avatar-art{height:320px}}
+
+.activity-row{display:flex;align-items:center;gap:12px;text-align:left;padding:13px 0;border-top:1px solid var(--line)}
+.mini-avatar{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:#4b2026;color:#ffadb2;font:700 18px 'Space Grotesk'}
+.activity-row b{display:block;font-size:13px}.activity-row small{display:block;color:var(--muted);font-size:11px;margin-top:3px}
+
+/* Swipe-card interaction */
+.profile-card{touch-action:pan-y;transition:transform .22s ease,opacity .22s ease;cursor:grab;user-select:none}
+.profile-card.swipe-left{transform:translateX(-115%) rotate(-12deg);opacity:0}
+.profile-card.swipe-right{transform:translateX(115%) rotate(12deg);opacity:0}
+.profile-card.dragging{transition:none}
+.swipe-hint{display:flex;justify-content:space-between;margin:8px 4px 0;color:#777174;font-size:10px;letter-spacing:.7px;text-transform:uppercase}
+.swipe-hint span:first-child{color:#ff8c94}.swipe-hint span:last-child{color:#ffb0b5}
