@@ -2,106 +2,125 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#100d10">
+  <meta name="description" content="ConnectX — a private friendship community space.">
   <title>ConnectX — Your Circle</title>
   <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
-  <div class="app-frame">
+  <div class="app-shell">
     <header class="topbar">
-      <a class="wordmark" href="#" aria-label="ConnectX home">connect<span>x</span><i></i></a>
-      <div class="top-actions">
-        <span class="edition">YOUR CIRCLE</span>
-        <span class="top-avatar">C</span>
-      </div>
+      <a class="brand" href="#" aria-label="ConnectX home" id="brandHome">connect<span>x</span><i></i></a>
+      <div class="top-right"><span class="edition">YOUR CIRCLE</span><div class="mini-avatar" id="topAvatar">C</div></div>
     </header>
 
-    <section id="authScreen" class="auth-layout">
-      <div class="intro">
-        <p class="kicker">A COMMUNITY BUILT AROUND YOU</p>
-        <h1>Find your<br><em>kind of people.</em></h1>
-        <p class="intro-copy">A calmer space to share interests, ideas and creativity.</p>
-        <div class="intro-rule"><span></span><small>CONNECT · CREATE · BELONG</small></div>
-      </div>
-      <div class="panel auth-card">
-        <div class="section-mark">01 <span>MEMBER ACCESS</span></div>
-        <h2>Welcome back</h2>
-        <p class="muted">Sign in or create your private account.</p>
-        <label>Email<input id="email" type="email" autocomplete="email" placeholder="you@example.com"></label>
-        <label>Password<input id="password" type="password" autocomplete="current-password" placeholder="Your password"></label>
-        <div class="actions"><button id="signinBtn">Sign in <span>↗</span></button><button id="signupBtn" class="secondary">Create account</button></div>
-        <button id="googleBtn" class="google secondary">Continue with Google</button>
-        <p id="authStatus" class="status" aria-live="polite"></p>
-        <p class="tiny-note">By continuing, you agree to keep the community respectful and private.</p>
-      </div>
-    </section>
+    <main>
+      <section id="authScreen" class="auth-screen">
+        <div class="hero">
+          <p class="eyebrow">A COMMUNITY BUILT AROUND YOU</p>
+          <h1>Find your<br><em>kind of people.</em></h1>
+          <p class="hero-copy">A calmer space for interests, ideas and creativity.</p>
+          <div class="hero-line"><span></span> CONNECT · CREATE · BELONG</div>
+        </div>
+        <div class="surface auth-card">
+          <p class="section-tag">01 / MEMBER ACCESS</p>
+          <h2>Welcome back</h2>
+          <p class="muted">Sign in or create your private account.</p>
+          <label>Email<input id="email" type="email" autocomplete="email" placeholder="you@example.com"></label>
+          <label>Password<input id="password" type="password" autocomplete="current-password" placeholder="At least 8 characters"></label>
+          <div class="button-row">
+            <button id="signinBtn" type="button">Sign in <span>↗</span></button>
+            <button id="signupBtn" class="button-quiet" type="button">Create account</button>
+          </div>
+          <button id="googleBtn" class="google-btn" type="button">Continue with Google</button>
+          <p id="authStatus" class="status" aria-live="polite"></p>
+          <p class="fine-print">ConnectX is a private friendship-space prototype. Keep personal information private.</p>
+        </div>
+      </section>
 
-    <section id="profileScreen" class="panel profile-editor hidden">
-      <div class="section-mark">02 <span>PROFILE STUDIO</span></div>
-      <div class="editor-heading"><div><h1>Make it yours.</h1><p class="muted">Set up your private ConnectX profile.</p></div><div class="editor-number">CX / 02</div></div>
-      <div class="photo-row">
-        <div class="photo-ring"><img id="avatarPreview" alt="Profile photo preview" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Crect width='100%25' height='100%25' fill='%23221a20'/%3E%3Ctext x='50%25' y='57%25' fill='%23ff5367' font-size='42' text-anchor='middle'%3E%2B%3C/text%3E%3C/svg%3E"></div>
-        <div class="photo-info"><strong>Profile portrait</strong><p class="hint">A clear image works best. JPG, PNG or WebP · Max 3 MB.</p><label class="file-label" for="photoInput">Choose photo</label><input id="photoInput" type="file" accept="image/jpeg,image/png,image/webp"></div>
-      </div>
-      <div class="form-grid">
+      <section id="profileScreen" class="surface profile-setup hidden">
+        <p class="section-tag">02 / PROFILE STUDIO</p>
+        <div class="heading-row"><div><h1>Make it yours.</h1><p class="muted">Set up your private profile.</p></div><span class="code-label">CX / 02</span></div>
+        <div class="photo-row">
+          <div class="photo-frame"><img id="avatarPreview" alt="Profile photo preview" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23251a20'/%3E%3Ctext x='50' y='62' fill='%23ff5367' font-size='42' text-anchor='middle'%3E%2B%3C/text%3E%3C/svg%3E"></div>
+          <div class="photo-copy"><strong>Profile portrait</strong><p class="muted">JPG, PNG or WebP · Max 3 MB</p><label class="file-button" for="photoInput">Choose photo</label><input id="photoInput" class="file-input" type="file" accept="image/jpeg,image/png,image/webp"></div>
+        </div>
         <label>Display name<input id="displayName" maxlength="24" placeholder="Your nickname"></label>
         <label>Age group<select id="ageGroup"><option value="">Select age group</option><option value="13-15">13–15</option><option value="16-17">16–17</option></select></label>
-      </div>
-      <label>About you<textarea id="bio" maxlength="120" rows="3" placeholder="A little about what you enjoy..."></textarea></label>
-      <label>Your interests<input id="interests" maxlength="100" placeholder="Gaming, art, music, books..."></label>
-      <label class="check"><input id="rulesAgree" type="checkbox"><span>I’ll be respectful and won’t share private information.</span></label>
-      <div class="actions"><button id="saveProfileBtn">Save profile <span>↗</span></button><button id="backToAppBtn" class="secondary hidden">Back to ConnectX</button></div>
-      <p id="profileStatus" class="status" aria-live="polite"></p>
-    </section>
+        <label>About you<textarea id="bio" maxlength="120" rows="3" placeholder="A little about what you enjoy..."></textarea></label>
+        <label>Interests<input id="interests" maxlength="100" placeholder="Gaming, art, music, books..."></label>
+        <label class="check-row"><input id="rulesAgree" type="checkbox"><span>I’ll be respectful and won’t share private information.</span></label>
+        <div class="button-row"><button id="saveProfileBtn" type="button">Save profile <span>↗</span></button><button id="cancelProfileBtn" class="button-quiet hidden" type="button">Cancel</button></div>
+        <p id="profileStatus" class="status" aria-live="polite"></p>
+      </section>
 
-    <section id="appScreen" class="hidden">
-      <div class="dashboard-head">
-        <div><p class="kicker">YOUR SPACE / CONNECTX</p><h1>Good to see you, <span id="helloName">friend</span>.</h1></div>
-        <button id="editProfileBtn" class="edit-button">Edit profile <b>↗</b></button>
-      </div>
-      <div class="status-strip"><span class="status-dot"></span><span>PRIVATE PROFILE</span><span class="strip-divider">/</span><span>AWAITING REVIEW</span><span class="strip-spacer"></span><span class="cx-label">CX—01</span></div>
+      <section id="appScreen" class="app-screen hidden">
+        <div class="welcome-row">
+          <div><p class="eyebrow">YOUR SPACE / CONNECTX</p><h1>Hey, <span id="helloName">friend</span>.</h1><p class="muted">Your private space is ready.</p></div>
+          <button id="editProfileBtn" class="small-quiet" type="button">Edit profile ↗</button>
+        </div>
+        <div class="privacy-strip"><i></i><span>PRIVATE PROFILE</span><b>/</b><span>PENDING REVIEW</span><span class="strip-code">CX—01</span></div>
 
-      <nav class="dock" aria-label="Main navigation">
-        <button class="tab active" data-pane="profilePane"><span class="nav-symbol">◈</span><span>My space</span></button>
-        <button class="tab" data-pane="messagesPane"><span class="nav-symbol">▤</span><span>Messages</span></button>
-        <button class="tab" data-pane="safetyPane"><span class="nav-symbol">◇</span><span>Safety</span></button>
-      </nav>
-
-      <section id="profilePane" class="panel pane">
-        <div class="profile-banner">
-          <div class="banner-label">MEMBER PROFILE <span>01 / 03</span></div>
-          <div class="profile-main">
-            <div class="large-avatar"><img id="myAvatar" alt="Your private profile photo"></div>
-            <div class="profile-title"><h2 id="myName">Your profile</h2><span class="pending">PRIVATE · PENDING REVIEW</span></div>
+        <section id="homePane" class="page-pane">
+          <div class="section-heading"><div><p class="section-tag">01 / OVERVIEW</p><h2>Your space</h2></div><span class="round-mark">CX</span></div>
+          <div class="feature-card">
+            <span class="feature-kicker">WELCOME TO CONNECTX</span>
+            <h2>A little space<br>to be yourself.</h2>
+            <p>Your profile stays private in this version. You can update your details and manage your preferences here.</p>
+            <button class="outline-action" type="button" data-go="profilePane">View my profile ↗</button>
           </div>
-          <div class="banner-bottom"><span>CONNECTX MEMBER</span><span>FRIENDSHIP COMMUNITY</span></div>
-        </div>
-        <div class="profile-details">
-          <div class="detail-block"><span class="detail-label">ABOUT</span><p id="myBio" class="bio">Add a little about yourself.</p></div>
-          <div class="detail-block"><span class="detail-label">INTERESTS</span><p id="myInterests">Not added yet</p></div>
-        </div>
-        <div class="private-note"><span class="note-icon">i</span><span>This profile is visible only to you in the current version. Discovery and friend connections are not active.</span></div>
-      </section>
+          <div class="quick-grid">
+            <button class="quick-card" type="button" data-go="explorePane"><span>◈</span><b>Explore</b><small>Coming later</small></button>
+            <button class="quick-card" type="button" data-go="createPane"><span>＋</span><b>Create</b><small>Private drafts</small></button>
+          </div>
+        </section>
 
-      <section id="messagesPane" class="panel pane hidden">
-        <div class="section-mark">03 <span>INBOX</span></div>
-        <div class="empty-state"><div class="empty-icon">▤</div><h2>Your inbox, when it's ready.</h2><p>Messaging is not enabled in this starter. It will need age assurance, moderation, reporting and blocking before people can contact one another.</p><span class="coming-soon">MESSAGING · NOT ACTIVE</span></div>
-      </section>
+        <section id="explorePane" class="page-pane hidden">
+          <p class="section-tag">02 / DISCOVER</p><h2>Explore</h2>
+          <div class="empty-card"><div class="empty-symbol">◈</div><h3>A thoughtful community takes time.</h3><p>Public profile discovery is not active. It will stay off until age assurance, human moderation and privacy safeguards are ready.</p><span class="status-pill">DISCOVERY · NOT ACTIVE</span></div>
+        </section>
 
-      <section id="safetyPane" class="panel pane hidden">
-        <div class="section-mark">04 <span>COMMUNITY STANDARD</span></div>
-        <h2>Your safety comes first.</h2>
-        <div class="safety-list">
-          <div><b>01</b><p>Keep your address, school, phone number and live location private.</p></div>
-          <div><b>02</b><p>Only upload photos you are comfortable sharing. Avoid images with personal details.</p></div>
-          <div><b>03</b><p>Your profile remains private and pending review.</p></div>
-          <div><b>04</b><p>Discovery, friend requests and direct messages are currently disabled.</p></div>
-        </div>
-        <p class="muted">If an online interaction makes you uncomfortable, stop engaging and speak with a trusted adult.</p>
+        <section id="createPane" class="page-pane hidden">
+          <p class="section-tag">03 / CREATE</p><h2>Private notes</h2>
+          <div class="surface draft-card"><label>Write a note<textarea id="draftText" rows="5" maxlength="500" placeholder="Write something for yourself..."></textarea></label><button id="saveDraftBtn" type="button">Save on this device</button><p id="draftStatus" class="muted" aria-live="polite">Drafts are stored only in this browser and are not posted publicly.</p></div>
+        </section>
+
+        <section id="messagesPane" class="page-pane hidden">
+          <p class="section-tag">04 / INBOX</p><h2>Messages</h2>
+          <div class="empty-card"><div class="empty-symbol">▤</div><h3>Your inbox, when it's ready.</h3><p>Messaging is not enabled. Contact between users needs age assurance, moderation, reporting and blocking before it can be introduced.</p><span class="status-pill">MESSAGING · NOT ACTIVE</span></div>
+        </section>
+
+        <section id="profilePane" class="page-pane hidden">
+          <p class="section-tag">05 / MEMBER PROFILE</p>
+          <div class="surface profile-card">
+            <div class="profile-cover"><div class="large-avatar"><img id="myAvatar" alt="Your profile photo"></div><div><h2 id="myName">Your profile</h2><span class="status-pill">PRIVATE · PENDING REVIEW</span></div></div>
+            <div class="profile-info"><div><small>ABOUT</small><p id="myBio">Add a little about yourself.</p></div><div><small>INTERESTS</small><p id="myInterests">Not added yet</p></div></div>
+            <p class="private-note">ⓘ This profile is visible only to you in the current version.</p>
+          </div>
+          <button id="profileEditBtn" class="wide-quiet" type="button">Edit profile details</button>
+        </section>
+
+        <section id="settingsPane" class="page-pane hidden">
+          <p class="section-tag">06 / PREFERENCES</p><h2>Settings</h2>
+          <div class="surface settings-card"><div><b>Account</b><p class="muted">Manage your profile details and sign-in session.</p><button id="settingsEditBtn" class="wide-quiet" type="button">Edit profile</button></div><hr><div><b>Privacy & safety</b><p class="muted">Your profile remains private. Discovery and messages are off.</p><button class="wide-quiet" type="button" data-go="safetyPane">View safety guide</button></div><hr><button id="logoutBtn" class="logout-btn" type="button">Sign out ↗</button></div>
+        </section>
+
+        <section id="safetyPane" class="page-pane hidden">
+          <p class="section-tag">07 / COMMUNITY STANDARD</p><h2>Your safety comes first.</h2>
+          <div class="surface safety-card"><div><b>01</b><p>Keep your address, school, phone number and live location private.</p></div><div><b>02</b><p>Only upload photos you are comfortable sharing. Avoid images with personal details.</p></div><div><b>03</b><p>Your profile remains private and pending review.</p></div><div><b>04</b><p>Discovery and direct messages are currently disabled.</p></div><p class="muted">If an online interaction makes you uncomfortable, stop engaging and speak with a trusted adult.</p></div>
+        </section>
+
+        <nav class="bottom-nav" aria-label="Main navigation">
+          <button class="nav-item active" data-pane="homePane" type="button"><span>⌂</span><small>Home</small></button>
+          <button class="nav-item" data-pane="explorePane" type="button"><span>◈</span><small>Explore</small></button>
+          <button class="nav-item create-nav" data-pane="createPane" type="button"><span>＋</span><small>Create</small></button>
+          <button class="nav-item" data-pane="messagesPane" type="button"><span>▤</span><small>Inbox</small></button>
+          <button class="nav-item" data-pane="profilePane" type="button"><span>◉</span><small>Profile</small></button>
+          <button class="nav-item" data-pane="settingsPane" type="button"><span>⚙</span><small>Settings</small></button>
+        </nav>
       </section>
-      <div class="footer-actions"><button id="logoutBtn" class="logout-button">Sign out <span>↗</span></button></div>
-    </section>
+    </main>
     <p id="toast" class="toast" role="status" aria-live="polite"></p>
     <footer><span>CONNECTX ©</span><span>MADE FOR BETTER CONNECTIONS</span></footer>
   </div>
