@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#09090c">
 <meta name="description" content="ConnectX - Friendship and community">
 <title>ConnectX 2.0</title>
@@ -11,180 +11,173 @@
 <link rel="icon" href="icon.svg">
 <link rel="stylesheet" href="styles.css">
 </head>
-
 <body>
+
 <div class="shell">
 
 <header>
-  <a class="logo" href="#">
-    <span>Connect</span><b>X</b><small>2.0</small>
-  </a>
-  <button id="install" class="mini" hidden>Install App</button>
+<a class="logo" href="#"><span>Connect</span><b>X</b><small>2.0</small></a>
+<button id="install" class="mini" hidden>Install App</button>
 </header>
 
 <main>
 
 <section id="welcome" class="screen active">
-  <div class="hero">
-    <div class="orb">CX</div>
-    <p class="eyebrow">FRIENDSHIP • INTERESTS • COMMUNITY</p>
-    <h1>Find your<br><em>people.</em></h1>
-    <p class="muted">Meet people through shared interests and build positive friendships.</p>
-  </div>
+<div class="hero">
+<div class="orb">CX</div>
+<p class="eyebrow">FRIENDSHIP • INTERESTS • COMMUNITY</p>
+<h1>Find your<br><em>people.</em></h1>
+<p class="muted">A friendly space built around shared interests and positive friendships.</p>
+</div>
 
-  <div class="panel auth-panel">
-    <h2>Welcome to ConnectX</h2>
-    <p class="muted small">Sign in or create your account.</p>
+<div class="panel auth-panel">
+<h2>Welcome to ConnectX</h2>
+<p class="muted small">Create an account or sign in.</p>
 
-    <label>Email address
-      <input id="email" type="email" placeholder="you@example.com">
-    </label>
+<label>Email address
+<input id="email" type="email" autocomplete="email" placeholder="you@example.com">
+</label>
 
-    <label>Password
-      <input id="password" type="password" placeholder="At least 8 characters">
-    </label>
+<label>Password
+<input id="password" type="password" autocomplete="current-password" placeholder="At least 8 characters">
+</label>
 
-    <div class="actions">
-      <button id="signup" class="primary">Create account</button>
-      <button id="signin" class="secondary">Sign in</button>
-    </div>
+<div class="actions">
+<button id="signup" class="primary">Create account</button>
+<button id="signin" class="secondary">Sign in</button>
+</div>
 
-    <div class="or"><span>OR</span></div>
-    <button id="google" class="google">Continue with Google</button>
+<div class="or"><span>OR</span></div>
+<button id="google" class="google">Continue with Google</button>
+<p id="authStatus" class="status" aria-live="polite"></p>
+<p class="fine">Please follow our community safety rules.</p>
+</div>
 
-    <p id="authStatus" class="status"></p>
-    <p class="fine">By continuing, you agree to follow our community safety rules.</p>
-  </div>
-
-  <div class="safety-note">
-    <b>Safety comes first</b>
-    <span>Friendship community only. Private messaging and public discovery are not enabled.</span>
-  </div>
+<div class="safety-note">
+<b>Safety first</b>
+<span>Friendship community only. Public discovery and stranger messaging are disabled.</span>
+</div>
 </section>
 
 <section id="profileSetup" class="screen">
-  <p class="eyebrow">YOUR ACCOUNT</p>
-  <h1>Create your <em>profile.</em></h1>
+<p class="eyebrow">YOUR ACCOUNT</p>
+<h1>Create your <em>profile.</em></h1>
 
-  <div class="panel">
-    <label>Display name
-      <input id="displayName" maxlength="24" placeholder="Your nickname">
-    </label>
+<div class="panel">
+<label>Display name
+<input id="displayName" maxlength="24" placeholder="Choose a nickname">
+</label>
 
-    <label>Age group
-      <select id="ageGroup">
-        <option value="">Choose age group</option>
-        <option value="13-15">13–15</option>
-        <option value="16-17">16–17</option>
-      </select>
-    </label>
+<label>Age group
+<select id="ageGroup">
+<option value="">Choose age group</option>
+<option value="13-15">13–15</option>
+<option value="16-17">16–17</option>
+</select>
+</label>
 
-    <label>Short bio
-      <textarea id="bio" maxlength="120" placeholder="Tell us about your interests"></textarea>
-    </label>
+<label>Short bio
+<textarea id="bio" maxlength="120" placeholder="Tell us about your interests"></textarea>
+</label>
 
-    <label>Interests
-      <input id="interests" maxlength="80" placeholder="Music, art, gaming">
-    </label>
+<label>Interests
+<input id="interests" maxlength="80" placeholder="Music, art, gaming">
+</label>
 
-    <label class="check">
-      <input type="checkbox" id="rulesAgree">
-      I agree to the community safety rules.
-    </label>
+<label class="check">
+<input type="checkbox" id="rulesAgree">
+I agree to the safety rules.
+</label>
 
-    <button id="saveProfile" class="primary full">Save profile</button>
-    <p id="profileStatus" class="status"></p>
-  </div>
+<button id="saveProfile" class="primary full">Save profile</button>
+<p id="profileStatus" class="status" aria-live="polite"></p>
+</div>
 </section>
 
 <section id="home" class="screen">
 
-  <div class="home-head">
-    <div>
-      <p class="eyebrow">CONNECTX COMMUNITY</p>
-      <h1>Welcome, <em id="helloName">friend</em></h1>
-    </div>
-    <button id="logout" class="mini">Sign out</button>
-  </div>
+<div class="home-head">
+<div>
+<p class="eyebrow">CONNECTX COMMUNITY</p>
+<h1>Welcome, <em id="helloName">friend</em></h1>
+</div>
+<button id="logout" class="mini">Sign out</button>
+</div>
 
-  <div class="dashboard-banner">
-    <div>
-      <p class="eyebrow">YOUR COMMUNITY SPACE</p>
-      <h2>Good vibes start here.</h2>
-      <p>Explore interests, manage your profile and stay safe.</p>
-    </div>
-    <div class="banner-icon">CX</div>
-  </div>
+<div class="dashboard-banner">
+<div>
+<p class="eyebrow">YOUR COMMUNITY SPACE</p>
+<h2>Good vibes start here.</h2>
+<p>Explore your interests and manage your profile.</p>
+</div>
+<div class="banner-icon">CX</div>
+</div>
 
-  <div class="tabs">
-    <button class="tab active" data-tab="discover">Discover</button>
-    <button class="tab" data-tab="requests">Requests</button>
-    <button class="tab" data-tab="myprofile">My profile</button>
-    <button class="tab" data-tab="safety">Safety</button>
-  </div>
+<div class="tabs">
+<button class="tab active" data-tab="discover">Discover</button>
+<button class="tab" data-tab="requests">Requests</button>
+<button class="tab" data-tab="myprofile">My Profile</button>
+<button class="tab" data-tab="safety">Safety</button>
+</div>
 
-  <div id="discoverPane" class="pane active">
-    <div class="panel">
-      <div class="avatar" id="demoAvatar">C</div>
-      <div class="tag">COMMUNITY SPACE</div>
-      <h2 id="demoName">Coming soon</h2>
-      <p id="demoBio" class="muted">
-        Community discovery is not available yet.
-      </p>
-      <div id="demoInterests" class="chips"></div>
-      <p class="fine">This is a preview, not a real member profile.</p>
-    </div>
-    <p class="status" id="discoverStatus">
-      Public discovery is currently disabled.
-    </p>
-  </div>
+<div id="discoverPane" class="pane active">
+<div class="panel card">
+<div class="avatar" id="demoAvatar">CX</div>
+<div class="tag">COMMUNITY SPACE</div>
+<h2 id="demoName">Coming soon</h2>
+<p id="demoBio" class="muted">Community discovery is not available yet.</p>
+<div id="demoInterests" class="chips"></div>
+<p class="fine">Preview only. No public member profiles are displayed.</p>
+</div>
+<p class="status">Public discovery is currently disabled.</p>
+</div>
 
-  <div id="requestsPane" class="pane">
-    <div class="panel">
-      <div class="section-icon">✦</div>
-      <h2>Friend requests</h2>
-      <p class="muted">This feature will become available after the community safety system is ready.</p>
-      <p class="fine">No stranger messaging is enabled.</p>
-    </div>
-  </div>
+<div id="requestsPane" class="pane">
+<div class="panel">
+<div class="section-icon">✦</div>
+<h2>Friend requests</h2>
+<p class="muted">Friend requests will be available after the safety and moderation system is ready.</p>
+<p class="fine">Stranger messaging is not enabled.</p>
+</div>
+</div>
 
-  <div id="myprofilePane" class="pane">
-    <div class="panel profile-card">
-      <div class="avatar small-avatar" id="myAvatar">C</div>
-      <p class="eyebrow">MY PROFILE</p>
-      <h2 id="myName">Your profile</h2>
-      <p id="myBio" class="muted"></p>
-      <div id="myInterests" class="chips"></div>
-    </div>
-  </div>
+<div id="myprofilePane" class="pane">
+<div class="panel profile-card">
+<div class="avatar small-avatar" id="myAvatar">C</div>
+<p class="eyebrow">MY PROFILE</p>
+<h2 id="myName">Your profile</h2>
+<p id="myBio" class="muted"></p>
+<div id="myInterests" class="chips"></div>
+</div>
+</div>
 
-  <div id="safetyPane" class="pane">
-    <div class="safety-grid">
-      <article>
-        <b>Protect your privacy</b>
-        <p>Never share your address, school, phone number or passwords.</p>
-      </article>
-      <article>
-        <b>Respect everyone</b>
-        <p>No bullying, harassment, hate or pressure.</p>
-      </article>
-      <article>
-        <b>Stay safe online</b>
-        <p>Do not arrange private meetups with people you only know online.</p>
-      </article>
-      <article>
-        <b>Get help</b>
-        <p>Block unwanted contact where available and tell a trusted adult if something feels wrong.</p>
-      </article>
-    </div>
-  </div>
+<div id="safetyPane" class="pane">
+<div class="safety-grid">
+<article>
+<b>Protect your privacy</b>
+<p>Never share your address, school, phone number or password.</p>
+</article>
+<article>
+<b>Respect everyone</b>
+<p>No bullying, harassment, hate or pressure.</p>
+</article>
+<article>
+<b>Stay safe online</b>
+<p>Do not arrange private meetups with people you only know online.</p>
+</article>
+<article>
+<b>Get help</b>
+<p>Tell a trusted adult if something online makes you uncomfortable.</p>
+</article>
+</div>
+</div>
 
 </section>
 </main>
 
 <footer>
-  CONNECT<span>X</span> · FRIENDSHIP ONLY ·
-  <a href="PRIVACY.md">PRIVACY</a>
+CONNECT<span>X</span> · FRIENDSHIP ONLY ·
+<a href="PRIVACY.md">PRIVACY</a>
 </footer>
 
 </div>
