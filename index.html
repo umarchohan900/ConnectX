@@ -1,188 +1,110 @@
-
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#09090c">
-<meta name="description" content="ConnectX - Friendship and community">
-<title>ConnectX 2.0</title>
-<link rel="manifest" href="manifest.webmanifest">
-<link rel="icon" href="icon.svg">
-<link rel="stylesheet" href="styles.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#100d10">
+  <title>ConnectX — Your Circle</title>
+  <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
+  <div class="app-frame">
+    <header class="topbar">
+      <a class="wordmark" href="#" aria-label="ConnectX home">connect<span>x</span><i></i></a>
+      <div class="top-actions">
+        <span class="edition">YOUR CIRCLE</span>
+        <span class="top-avatar">C</span>
+      </div>
+    </header>
 
-<div class="shell">
+    <section id="authScreen" class="auth-layout">
+      <div class="intro">
+        <p class="kicker">A COMMUNITY BUILT AROUND YOU</p>
+        <h1>Find your<br><em>kind of people.</em></h1>
+        <p class="intro-copy">A calmer space to share interests, ideas and creativity.</p>
+        <div class="intro-rule"><span></span><small>CONNECT · CREATE · BELONG</small></div>
+      </div>
+      <div class="panel auth-card">
+        <div class="section-mark">01 <span>MEMBER ACCESS</span></div>
+        <h2>Welcome back</h2>
+        <p class="muted">Sign in or create your private account.</p>
+        <label>Email<input id="email" type="email" autocomplete="email" placeholder="you@example.com"></label>
+        <label>Password<input id="password" type="password" autocomplete="current-password" placeholder="Your password"></label>
+        <div class="actions"><button id="signinBtn">Sign in <span>↗</span></button><button id="signupBtn" class="secondary">Create account</button></div>
+        <button id="googleBtn" class="google secondary">Continue with Google</button>
+        <p id="authStatus" class="status" aria-live="polite"></p>
+        <p class="tiny-note">By continuing, you agree to keep the community respectful and private.</p>
+      </div>
+    </section>
 
-<header>
-<a class="logo" href="#"><span>Connect</span><b>X</b><small>2.0</small></a>
-<button id="install" class="mini" hidden>Install App</button>
-</header>
+    <section id="profileScreen" class="panel profile-editor hidden">
+      <div class="section-mark">02 <span>PROFILE STUDIO</span></div>
+      <div class="editor-heading"><div><h1>Make it yours.</h1><p class="muted">Set up your private ConnectX profile.</p></div><div class="editor-number">CX / 02</div></div>
+      <div class="photo-row">
+        <div class="photo-ring"><img id="avatarPreview" alt="Profile photo preview" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Crect width='100%25' height='100%25' fill='%23221a20'/%3E%3Ctext x='50%25' y='57%25' fill='%23ff5367' font-size='42' text-anchor='middle'%3E%2B%3C/text%3E%3C/svg%3E"></div>
+        <div class="photo-info"><strong>Profile portrait</strong><p class="hint">A clear image works best. JPG, PNG or WebP · Max 3 MB.</p><label class="file-label" for="photoInput">Choose photo</label><input id="photoInput" type="file" accept="image/jpeg,image/png,image/webp"></div>
+      </div>
+      <div class="form-grid">
+        <label>Display name<input id="displayName" maxlength="24" placeholder="Your nickname"></label>
+        <label>Age group<select id="ageGroup"><option value="">Select age group</option><option value="13-15">13–15</option><option value="16-17">16–17</option></select></label>
+      </div>
+      <label>About you<textarea id="bio" maxlength="120" rows="3" placeholder="A little about what you enjoy..."></textarea></label>
+      <label>Your interests<input id="interests" maxlength="100" placeholder="Gaming, art, music, books..."></label>
+      <label class="check"><input id="rulesAgree" type="checkbox"><span>I’ll be respectful and won’t share private information.</span></label>
+      <div class="actions"><button id="saveProfileBtn">Save profile <span>↗</span></button><button id="backToAppBtn" class="secondary hidden">Back to ConnectX</button></div>
+      <p id="profileStatus" class="status" aria-live="polite"></p>
+    </section>
 
-<main>
+    <section id="appScreen" class="hidden">
+      <div class="dashboard-head">
+        <div><p class="kicker">YOUR SPACE / CONNECTX</p><h1>Good to see you, <span id="helloName">friend</span>.</h1></div>
+        <button id="editProfileBtn" class="edit-button">Edit profile <b>↗</b></button>
+      </div>
+      <div class="status-strip"><span class="status-dot"></span><span>PRIVATE PROFILE</span><span class="strip-divider">/</span><span>AWAITING REVIEW</span><span class="strip-spacer"></span><span class="cx-label">CX—01</span></div>
 
-<section id="welcome" class="screen active">
-<div class="hero">
-<div class="orb">CX</div>
-<p class="eyebrow">FRIENDSHIP • INTERESTS • COMMUNITY</p>
-<h1>Find your<br><em>people.</em></h1>
-<p class="muted">A friendly space built around shared interests and positive friendships.</p>
-</div>
+      <nav class="dock" aria-label="Main navigation">
+        <button class="tab active" data-pane="profilePane"><span class="nav-symbol">◈</span><span>My space</span></button>
+        <button class="tab" data-pane="messagesPane"><span class="nav-symbol">▤</span><span>Messages</span></button>
+        <button class="tab" data-pane="safetyPane"><span class="nav-symbol">◇</span><span>Safety</span></button>
+      </nav>
 
-<div class="panel auth-panel">
-<h2>Welcome to ConnectX</h2>
-<p class="muted small">Create an account or sign in.</p>
+      <section id="profilePane" class="panel pane">
+        <div class="profile-banner">
+          <div class="banner-label">MEMBER PROFILE <span>01 / 03</span></div>
+          <div class="profile-main">
+            <div class="large-avatar"><img id="myAvatar" alt="Your private profile photo"></div>
+            <div class="profile-title"><h2 id="myName">Your profile</h2><span class="pending">PRIVATE · PENDING REVIEW</span></div>
+          </div>
+          <div class="banner-bottom"><span>CONNECTX MEMBER</span><span>FRIENDSHIP COMMUNITY</span></div>
+        </div>
+        <div class="profile-details">
+          <div class="detail-block"><span class="detail-label">ABOUT</span><p id="myBio" class="bio">Add a little about yourself.</p></div>
+          <div class="detail-block"><span class="detail-label">INTERESTS</span><p id="myInterests">Not added yet</p></div>
+        </div>
+        <div class="private-note"><span class="note-icon">i</span><span>This profile is visible only to you in the current version. Discovery and friend connections are not active.</span></div>
+      </section>
 
-<label>Email address
-<input id="email" type="email" autocomplete="email" placeholder="you@example.com">
-</label>
+      <section id="messagesPane" class="panel pane hidden">
+        <div class="section-mark">03 <span>INBOX</span></div>
+        <div class="empty-state"><div class="empty-icon">▤</div><h2>Your inbox, when it's ready.</h2><p>Messaging is not enabled in this starter. It will need age assurance, moderation, reporting and blocking before people can contact one another.</p><span class="coming-soon">MESSAGING · NOT ACTIVE</span></div>
+      </section>
 
-<label>Password
-<input id="password" type="password" autocomplete="current-password" placeholder="At least 8 characters">
-</label>
-
-<div class="actions">
-<button id="signup" class="primary">Create account</button>
-<button id="signin" class="secondary">Sign in</button>
-</div>
-
-<div class="or"><span>OR</span></div>
-<button id="google" class="google">Continue with Google</button>
-<p id="authStatus" class="status" aria-live="polite"></p>
-<p class="fine">Please follow our community safety rules.</p>
-</div>
-
-<div class="safety-note">
-<b>Safety first</b>
-<span>Friendship community only. Public discovery and stranger messaging are disabled.</span>
-</div>
-</section>
-
-<section id="profileSetup" class="screen">
-<p class="eyebrow">YOUR ACCOUNT</p>
-<h1>Create your <em>profile.</em></h1>
-
-<div class="panel">
-<label>Display name
-<input id="displayName" maxlength="24" placeholder="Choose a nickname">
-</label>
-
-<label>Age group
-<select id="ageGroup">
-<option value="">Choose age group</option>
-<option value="13-15">13–15</option>
-<option value="16-17">16–17</option>
-</select>
-</label>
-
-<label>Short bio
-<textarea id="bio" maxlength="120" placeholder="Tell us about your interests"></textarea>
-</label>
-
-<label>Interests
-<input id="interests" maxlength="80" placeholder="Music, art, gaming">
-</label>
-
-<label class="check">
-<input type="checkbox" id="rulesAgree">
-I agree to the safety rules.
-</label>
-
-<button id="saveProfile" class="primary full">Save profile</button>
-<p id="profileStatus" class="status" aria-live="polite"></p>
-</div>
-</section>
-
-<section id="home" class="screen">
-
-<div class="home-head">
-<div>
-<p class="eyebrow">CONNECTX COMMUNITY</p>
-<h1>Welcome, <em id="helloName">friend</em></h1>
-</div>
-<button id="logout" class="mini">Sign out</button>
-</div>
-
-<div class="dashboard-banner">
-<div>
-<p class="eyebrow">YOUR COMMUNITY SPACE</p>
-<h2>Good vibes start here.</h2>
-<p>Explore your interests and manage your profile.</p>
-</div>
-<div class="banner-icon">CX</div>
-</div>
-
-<div class="tabs">
-<button class="tab active" data-tab="discover">Discover</button>
-<button class="tab" data-tab="requests">Requests</button>
-<button class="tab" data-tab="myprofile">My Profile</button>
-<button class="tab" data-tab="safety">Safety</button>
-</div>
-
-<div id="discoverPane" class="pane active">
-<div class="panel card">
-<div class="avatar" id="demoAvatar">CX</div>
-<div class="tag">COMMUNITY SPACE</div>
-<h2 id="demoName">Coming soon</h2>
-<p id="demoBio" class="muted">Community discovery is not available yet.</p>
-<div id="demoInterests" class="chips"></div>
-<p class="fine">Preview only. No public member profiles are displayed.</p>
-</div>
-<p class="status">Public discovery is currently disabled.</p>
-</div>
-
-<div id="requestsPane" class="pane">
-<div class="panel">
-<div class="section-icon">✦</div>
-<h2>Friend requests</h2>
-<p class="muted">Friend requests will be available after the safety and moderation system is ready.</p>
-<p class="fine">Stranger messaging is not enabled.</p>
-</div>
-</div>
-
-<div id="myprofilePane" class="pane">
-<div class="panel profile-card">
-<div class="avatar small-avatar" id="myAvatar">C</div>
-<p class="eyebrow">MY PROFILE</p>
-<h2 id="myName">Your profile</h2>
-<p id="myBio" class="muted"></p>
-<div id="myInterests" class="chips"></div>
-</div>
-</div>
-
-<div id="safetyPane" class="pane">
-<div class="safety-grid">
-<article>
-<b>Protect your privacy</b>
-<p>Never share your address, school, phone number or password.</p>
-</article>
-<article>
-<b>Respect everyone</b>
-<p>No bullying, harassment, hate or pressure.</p>
-</article>
-<article>
-<b>Stay safe online</b>
-<p>Do not arrange private meetups with people you only know online.</p>
-</article>
-<article>
-<b>Get help</b>
-<p>Tell a trusted adult if something online makes you uncomfortable.</p>
-</article>
-</div>
-</div>
-
-</section>
-</main>
-
-<footer>
-CONNECT<span>X</span> · FRIENDSHIP ONLY ·
-<a href="PRIVACY.md">PRIVACY</a>
-</footer>
-
-</div>
-
-<div id="toast" class="toast" role="status"></div>
-<script type="module" src="app.js"></script>
+      <section id="safetyPane" class="panel pane hidden">
+        <div class="section-mark">04 <span>COMMUNITY STANDARD</span></div>
+        <h2>Your safety comes first.</h2>
+        <div class="safety-list">
+          <div><b>01</b><p>Keep your address, school, phone number and live location private.</p></div>
+          <div><b>02</b><p>Only upload photos you are comfortable sharing. Avoid images with personal details.</p></div>
+          <div><b>03</b><p>Your profile remains private and pending review.</p></div>
+          <div><b>04</b><p>Discovery, friend requests and direct messages are currently disabled.</p></div>
+        </div>
+        <p class="muted">If an online interaction makes you uncomfortable, stop engaging and speak with a trusted adult.</p>
+      </section>
+      <div class="footer-actions"><button id="logoutBtn" class="logout-button">Sign out <span>↗</span></button></div>
+    </section>
+    <p id="toast" class="toast" role="status" aria-live="polite"></p>
+    <footer><span>CONNECTX ©</span><span>MADE FOR BETTER CONNECTIONS</span></footer>
+  </div>
+  <script type="module" src="./app.js"></script>
 </body>
 </html>
