@@ -28,7 +28,6 @@ const $ = id => document.getElementById(id);
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
-
 const googleProvider = new GoogleAuthProvider();
 
 const screens = ["welcome", "profileSetup", "home"];
@@ -47,7 +46,6 @@ let toastTimer;
 
 function toast(message) {
   const element = $("toast");
-
   element.textContent = message;
   element.classList.add("show");
 
@@ -60,30 +58,16 @@ function toast(message) {
 
 function friendlyError(error) {
   const messages = {
-    "auth/email-already-in-use":
-      "This email already has an account.",
-
-    "auth/invalid-email":
-      "Enter a valid email address.",
-
-    "auth/weak-password":
-      "Use a stronger password.",
-
-    "auth/invalid-credential":
-      "Email or password is incorrect.",
-
-    "auth/popup-closed-by-user":
-      "Google sign-in was closed.",
-
-    "auth/operation-not-allowed":
-      "Enable this login method in Firebase Console.",
-
-    "auth/network-request-failed":
-      "Check your internet connection."
+    "auth/email-already-in-use": "This email already has an account.",
+    "auth/invalid-email": "Enter a valid email address.",
+    "auth/weak-password": "Use a stronger password.",
+    "auth/invalid-credential": "Email or password is incorrect.",
+    "auth/popup-closed-by-user": "Google sign-in was closed.",
+    "auth/operation-not-allowed": "Enable this login method in Firebase.",
+    "auth/network-request-failed": "Check your internet connection."
   };
 
-  return messages[error.code] ||
-    "Something went wrong. Please try again.";
+  return messages[error.code] || "Something went wrong. Please try again.";
 }
 
 function renderProfile(profile) {
@@ -91,20 +75,15 @@ function renderProfile(profile) {
 
   $("helloName").textContent = name;
   $("myName").textContent = name;
-
-  $("myAvatar").textContent =
-    name.trim().charAt(0).toUpperCase();
-
+  $("myAvatar").textContent = name.trim().charAt(0).toUpperCase();
   $("myBio").textContent = profile.bio || "";
 
   $("myInterests").replaceChildren();
 
   (profile.interests || []).forEach(interest => {
     const chip = document.createElement("span");
-
     chip.className = "chip";
     chip.textContent = interest;
-
     $("myInterests").appendChild(chip);
   });
 }
@@ -115,7 +94,6 @@ async function profileFor(user) {
 
   if (snapshot.exists()) {
     const profile = snapshot.data();
-
     renderProfile(profile);
     screen("home");
 
@@ -128,7 +106,6 @@ async function profileFor(user) {
 }
 
 // CREATE ACCOUNT
-
 $("signup").addEventListener("click", async () => {
   status("authStatus", "");
 
@@ -136,26 +113,18 @@ $("signup").addEventListener("click", async () => {
   const password = $("password").value;
 
   if (!email || password.length < 8) {
-    status(
-      "authStatus",
-      "Enter a valid email and password with at least 8 characters."
-    );
+    status("authStatus", "Enter an email and password with at least 8 characters.");
     return;
   }
 
   try {
-    await createUserWithEmailAndPassword(
-      auth,
-      email,
-      password
-    );
+    await createUserWithEmailAndPassword(auth, email, password);
   } catch (error) {
     status("authStatus", friendlyError(error));
   }
 });
 
 // SIGN IN
-
 $("signin").addEventListener("click", async () => {
   status("authStatus", "");
 
@@ -168,18 +137,13 @@ $("signin").addEventListener("click", async () => {
   }
 
   try {
-    await signInWithEmailAndPassword(
-      auth,
-      email,
-      password
-    );
+    await signInWithEmailAndPassword(auth, email, password);
   } catch (error) {
     status("authStatus", friendlyError(error));
   }
 });
 
 // GOOGLE LOGIN
-
 $("google").addEventListener("click", async () => {
   status("authStatus", "");
 
@@ -191,27 +155,19 @@ $("google").addEventListener("click", async () => {
 });
 
 // SAVE PROFILE
-
 $("saveProfile").addEventListener("click", async () => {
   status("profileStatus", "");
 
   const user = auth.currentUser;
+  const displayName = $("displayName").value.trim();
+  const ageGroup = $("ageGroup").value;
+  const bio = $("bio").value.trim();
 
-  const displayName =
-    $("displayName").value.trim();
-
-  const ageGroup =
-    $("ageGroup").value;
-
-  const bio =
-    $("bio").value.trim();
-
-  const interests =
-    $("interests").value
-      .split(",")
-      .map(item => item.trim())
-      .filter(Boolean)
-      .slice(0, 6);
+  const interests = $("interests").value
+    .split(",")
+    .map(item => item.trim())
+    .filter(Boolean)
+    .slice(0, 6);
 
   if (!user) {
     status("profileStatus", "Please sign in again.");
@@ -223,55 +179,34 @@ $("saveProfile").addEventListener("click", async () => {
     !["13-15", "16-17"].includes(ageGroup) ||
     !$("rulesAgree").checked
   ) {
-    status(
-      "profileStatus",
-      "Enter a nickname, choose an age group and accept the safety rules."
-    );
-    return;
-  }
-
-  if (bio.length > 120) {
-    status("profileStatus", "Your bio is too long.");
+    status("profileStatus", "Enter a nickname, choose an age group and accept the safety rules.");
     return;
   }
 
   try {
-    await setDoc(
-      doc(db, "profiles", user.uid),
-      {
-        uid: user.uid,
-        displayName,
-        ageGroup,
-        bio,
-        interests,
-        community: "friendship",
-        status: "pending_review",
-        createdAt: serverTimestamp()
-      }
-    );
-
-    renderProfile({
+    await setDoc(doc(db, "profiles", user.uid), {
+      uid: user.uid,
       displayName,
+      ageGroup,
       bio,
-      interests
+      interests,
+      community: "friendship",
+      status: "pending_review",
+      createdAt: serverTimestamp()
     });
 
-    status(
-      "profileStatus",
-      "Profile submitted. It remains private pending review."
-    );
+    renderProfile({ displayName, bio, interests });
 
+    status("profileStatus", "Profile submitted. It remains private pending review.");
     toast("Profile saved for review.");
 
     screen("home");
-
   } catch (error) {
     status("profileStatus", friendlyError(error));
   }
 });
 
 // SIGN OUT
-
 $("logout").addEventListener("click", async () => {
   try {
     await signOut(auth);
@@ -282,10 +217,8 @@ $("logout").addEventListener("click", async () => {
 });
 
 // DASHBOARD TABS
-
 document.querySelectorAll(".tab").forEach(button => {
   button.addEventListener("click", () => {
-
     document.querySelectorAll(".tab").forEach(tab => {
       tab.classList.toggle("active", tab === button);
     });
@@ -299,18 +232,7 @@ document.querySelectorAll(".tab").forEach(button => {
   });
 });
 
-// DISCOVERY PREVIEW
-
-$("skip").addEventListener("click", () => {
-  toast("Community discovery is not available yet.");
-});
-
-$("request").addEventListener("click", () => {
-  toast("Friend requests are not enabled yet.");
-});
-
 // AUTH STATE
-
 onAuthStateChanged(auth, async user => {
   if (!user) {
     screen("welcome");
@@ -321,29 +243,19 @@ onAuthStateChanged(auth, async user => {
     await profileFor(user);
   } catch (error) {
     screen("profileSetup");
-
-    status(
-      "profileStatus",
-      friendlyError(error)
-    );
+    status("profileStatus", friendlyError(error));
   }
 });
 
 // PWA INSTALL
-
 let installEvent = null;
-
 $("install").hidden = true;
 
-window.addEventListener(
-  "beforeinstallprompt",
-  event => {
-    event.preventDefault();
-
-    installEvent = event;
-    $("install").hidden = false;
-  }
-);
+window.addEventListener("beforeinstallprompt", event => {
+  event.preventDefault();
+  installEvent = event;
+  $("install").hidden = false;
+});
 
 $("install").addEventListener("click", async () => {
   if (!installEvent) {
@@ -352,7 +264,6 @@ $("install").addEventListener("click", async () => {
   }
 
   installEvent.prompt();
-
   await installEvent.userChoice;
 
   installEvent = null;
@@ -360,13 +271,10 @@ $("install").addEventListener("click", async () => {
 });
 
 // SERVICE WORKER
-
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => {
     navigator.serviceWorker
       .register("./sw.js")
-      .catch(error => {
-        console.log("Service worker unavailable:", error);
-      });
+      .catch(error => console.log("Service worker unavailable:", error));
   });
 }
