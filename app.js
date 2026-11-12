@@ -1,64 +1,64 @@
-const profiles = [
-  {name:"Alex",age:16,initial:"A",bio:"Into sketching, music and weekend football.",interests:["Art","Music","Football"]},
-  {name:"Sam",age:17,initial:"S",bio:"Book lover who enjoys coding small projects.",interests:["Books","Coding","Chess"]},
-  {name:"Jamie",age:15,initial:"J",bio:"Trying new recipes and learning guitar.",interests:["Cooking","Guitar","Movies"]},
-  {name:"Taylor",age:16,initial:"T",bio:"Nature walks, photography and science facts.",interests:["Nature","Photos","Science"]}
-];
-let current = 0;
-let activity = [];
-const $ = id => document.getElementById(id);
-function showToast(text){const el=$("toast");el.textContent=text;el.classList.add("show");setTimeout(()=>el.classList.remove("show"),2100)}
-function renderProfile(){
-  if(current>=profiles.length){$("profileCard").innerHTML='<div class="panel"><div class="empty-icon">✦</div><h3>That’s everyone for now</h3><p>You reached the end of the sample profiles.</p><button class="outline-btn" id="againBtn">Start again</button></div>'; $("againBtn").addEventListener("click",()=>{current=0;renderProfile()});return}
-  const p=profiles[current];
-  $("avatarInitial").textContent=p.initial;$("profileName").textContent=`${p.name}, ${p.age}`;$("profileBio").textContent=p.bio;
-  $("profileInterests").innerHTML=p.interests.map(x=>`<span class="chip">${x}</span>`).join("");
-}
-function renderActivity(){
-  const host=$("connectionList");
-  if(!activity.length){host.innerHTML='<div class="empty-icon">♡</div><h3>No hellos yet</h3><p>When you tap “Say hi” on a sample profile, it will appear here.</p>';return}
-  host.innerHTML='<h3>Your demo activity</h3>'+activity.map(p=>`<div class="activity-row"><span class="mini-avatar">${p.initial}</span><div><b>${p.name}, ${p.age}</b><small>Say hi sent on this device</small></div></div>`).join("");
-}
-function next(){current++;renderProfile()}
-$("skipBtn").addEventListener("click",()=>{next();$("feedback").textContent="Skipped this sample profile."});
-$("helloBtn").addEventListener("click",()=>{if(current<profiles.length){const p=profiles[current];activity.unshift(p);renderActivity();$("feedback").textContent=`You said hi to ${p.name} (demo only).`;next();}});
-document.querySelectorAll(".nav-item").forEach(btn=>btn.addEventListener("click",()=>{
-  document.querySelectorAll(".nav-item").forEach(x=>x.classList.toggle("selected",x===btn));
-  document.querySelectorAll(".view").forEach(x=>x.classList.toggle("active",x.id===btn.dataset.view));
-  if(btn.dataset.view==="connectionsView")renderActivity();
-}));
-$("resetBtn").addEventListener("click",()=>{activity=[];current=0;renderActivity();renderProfile();showToast("Demo activity reset.")});
-let installPrompt;
-window.addEventListener("beforeinstallprompt",e=>{e.preventDefault();installPrompt=e;$("installBtn").hidden=false});
-$("installBtn").addEventListener("click",async()=>{if(!installPrompt){showToast("Use your browser menu and choose Add to Home screen.");return}installPrompt.prompt();installPrompt=null;$("installBtn").hidden=true});
-if("serviceWorker" in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>{}))}
-renderProfile();
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-auth.js";
+import { getFirestore, doc, getDoc, setDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js";
+import { firebaseConfig } from "./firebase-config.js";
 
-// Touch swipe gestures: left = skip, right = say hi (friendship demo only).
-(() => {
-  const card = $("profileCard");
-  let startX = 0, startY = 0, deltaX = 0, tracking = false;
-  card.addEventListener("touchstart", e => {
-    if (e.touches.length !== 1) return;
-    startX = e.touches[0].clientX;
-    startY = e.touches[0].clientY;
-    deltaX = 0; tracking = true;
-    card.classList.add("dragging");
-  }, {passive:true});
-  card.addEventListener("touchmove", e => {
-    if (!tracking || e.touches.length !== 1) return;
-    deltaX = e.touches[0].clientX - startX;
-    const deltaY = e.touches[0].clientY - startY;
-    if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 8) {
-      card.style.transform = `translateX(${deltaX}px) rotate(${deltaX / 22}deg)`;
-    }
-  }, {passive:true});
-  card.addEventListener("touchend", () => {
-    if (!tracking) return;
-    tracking = false;
-    card.classList.remove("dragging");
-    card.style.transform = "";
-    if (deltaX > 95) $("helloBtn").click();
-    else if (deltaX < -95) $("skipBtn").click();
-  });
-})();
+const $ = id => document.getElementById(id);
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+const googleProvider = new GoogleAuthProvider();
+const screens = ["welcome","profileSetup","home"];
+function screen(id){screens.forEach(x=>$(x).classList.toggle("active",x===id))}
+function status(id,msg){$(id).textContent=msg}
+function toast(msg){$("toast").textContent=msg;$("toast").classList.add("show");setTimeout(()=>$("toast").classList.remove("show"),2400)}
+function safeText(s){return String(s||"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function renderProfile(p){
+  $("helloName").textContent=p.displayName||"friend";
+  $("myName").textContent=p.displayName||"Your profile";
+  $("myAvatar").textContent=(p.displayName||"C").trim().charAt(0).toUpperCase();
+  $("myBio").textContent=p.bio||"";
+  $("myInterests").innerHTML=(p.interests||[]).map(x=>`<span class="chip">${safeText(x)}</span>`).join("");
+}
+async function profileFor(user){
+  const snap=await getDoc(doc(db,"profiles",user.uid));
+  if(snap.exists()){renderProfile(snap.data());screen("home")}else screen("profileSetup");
+}
+function friendlyError(e){
+  const map={"auth/email-already-in-use":"This email already has an account.","auth/invalid-email":"Enter a valid email address.","auth/weak-password":"Use a stronger password (at least 8 characters).","auth/invalid-credential":"Email or password is incorrect.","auth/popup-closed-by-user":"Google sign-in was closed.","auth/operation-not-allowed":"Enable this sign-in method in Firebase Console."};
+  return map[e.code]||e.message||"Something went wrong. Please try again.";
+}
+$("signup").addEventListener("click",async()=>{
+  status("authStatus","");const email=$("email").value.trim(),password=$("password").value;
+  if(!email||password.length<8){status("authStatus","Enter an email and a password with at least 8 characters.");return}
+  try{await createUserWithEmailAndPassword(auth,email,password)}catch(e){status("authStatus",friendlyError(e))}
+});
+$("signin").addEventListener("click",async()=>{
+  status("authStatus","");try{await signInWithEmailAndPassword(auth,$("email").value.trim(),$("password").value)}catch(e){status("authStatus",friendlyError(e))}
+});
+$("google").addEventListener("click",async()=>{
+  status("authStatus","");try{await signInWithPopup(auth,googleProvider)}catch(e){status("authStatus",friendlyError(e))}
+});
+$("saveProfile").addEventListener("click",async()=>{
+  const user=auth.currentUser,displayName=$("displayName").value.trim(),ageGroup=$("ageGroup").value,bio=$("bio").value.trim();
+  const interests=$("interests").value.split(",").map(x=>x.trim()).filter(Boolean).slice(0,6);
+  if(!user){status("profileStatus","Please sign in again.");return}
+  if(displayName.length<2||!["13-15","16-17"].includes(ageGroup)||!$("rulesAgree").checked){status("profileStatus","Enter a nickname, choose an eligible age group and accept the safety rules.");return}
+  try{
+    await setDoc(doc(db,"profiles",user.uid),{uid:user.uid,displayName,ageGroup,bio,interests,community:"friendship",status:"pending_review",createdAt:serverTimestamp()});
+    status("profileStatus","Profile submitted. It will remain private until moderation is configured and approves it.");
+    toast("Profile saved for review.");
+  }catch(e){status("profileStatus",friendlyError(e))}
+});
+$("logout").addEventListener("click",()=>signOut(auth));
+document.querySelectorAll(".tab").forEach(btn=>btn.addEventListener("click",()=>{
+  document.querySelectorAll(".tab").forEach(x=>x.classList.toggle("active",x===btn));
+  document.querySelectorAll(".pane").forEach(x=>x.classList.toggle("active",x.id===btn.dataset.tab+"Pane"));
+}));
+$("skip").addEventListener("click",()=>toast("Live discovery is disabled until safety review is configured."));
+$("request").addEventListener("click",()=>toast("Friend requests unlock after approved profiles and moderation are connected."));
+onAuthStateChanged(auth,async user=>{if(user){try{await profileFor(user)}catch(e){screen("profileSetup");status("profileStatus",friendlyError(e))}}else screen("welcome")});
+if("serviceWorker" in navigator)window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>{}));
+let installEvent;$("install").hidden=true;
+window.addEventListener("beforeinstallprompt",e=>{e.preventDefault();installEvent=e;$("install").hidden=false});
+$("install").addEventListener("click",async()=>{if(installEvent){installEvent.prompt();installEvent=null}else toast("Open browser menu and choose Add to Home screen.")});

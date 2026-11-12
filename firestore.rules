@@ -1,0 +1,31 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() { return request.auth != null; }
+
+    // Profiles remain private/pending by default. Public profile discovery must
+    // be implemented only after robust age assurance and human moderation exist.
+    match /profiles/{uid} {
+      allow create: if signedIn()
+        && request.auth.uid == uid
+        && request.resource.data.uid == uid
+        && request.resource.data.status == "pending_review"
+        && request.resource.data.community == "friendship"
+        && request.resource.data.ageGroup in ["13-15", "16-17"]
+        && request.resource.data.displayName is string
+        && request.resource.data.displayName.size() >= 2
+        && request.resource.data.displayName.size() <= 24
+        && request.resource.data.bio is string
+        && request.resource.data.bio.size() <= 120;
+      allow read: if signedIn() && request.auth.uid == uid;
+      allow update, delete: if signedIn() && request.auth.uid == uid
+        && request.resource.data.status == resource.data.status;
+    }
+
+    // No client-side chat or public friend-request writes in this starter.
+    // Add trusted Cloud Functions + moderation before enabling either.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

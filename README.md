@@ -1,26 +1,39 @@
-# ConnectX PWA — phone-friendly starter
+# ConnectX 2.0 — phone-friendly PWA starter
 
-A black-and-red, installable web-app starter for a **friendship discovery concept**.
+Black/red friendship-community interface with Firebase Email/Password and Google sign-in.
 
-## Open it on your phone
-1. Download and extract the ZIP using your phone's file manager.
-2. Upload the folder contents to a new GitHub repository (GitHub mobile app or browser).
-3. In the repository, open **Settings → Pages**.
-4. Choose **Deploy from a branch**, select `main` and `/ (root)`, then Save.
-5. Wait for the Pages deployment and open the provided website link in Chrome.
-6. In Chrome, use **⋮ → Add to Home screen** or **Install app** if offered.
+## Important status
+This is an **authentication + private-profile starter**, not a production public social network.
+Google/Email login works only after you configure your own Firebase project. Profile documents
+are private and pending review. Public discovery, friend requests, chat, image uploads and
+admin moderation are intentionally disabled until age assurance and safety systems are built.
 
-You can also use a static hosting service that supports HTTPS.
+## Set up Firebase (phone or PC)
+1. Open https://console.firebase.google.com/ and create a project.
+2. Add a Web app and copy its Firebase config into `firebase-config.js`.
+3. In Authentication -> Sign-in method, enable Email/Password and Google.
+4. In Firestore Database, create a database.
+5. Open Firestore Rules and paste `firestore.rules`, then Publish.
+6. Add your GitHub Pages domain to Authentication -> Settings -> Authorized domains.
+7. Commit all files to your GitHub repository (replace the old files).
+8. Open the GitHub Pages website over HTTPS and test signup/login.
 
-## Included
-- Responsive mobile layout
-- Discover cards with sample profiles
-- Skip and Say hi local demo actions
-- Activity list stored only in the current page session
-- Safety tips and About page
-- PWA manifest and service worker for install/offline shell
+## GitHub Pages update from Android
+- Open your ConnectX repository -> Add file -> Upload files.
+- Upload the files from this folder to the repository root, replacing existing files.
+- Commit changes. Keep `index.html` at the root.
 
-## Important limitations
-This is a front-end demo. It has no real accounts, server, profile uploads, live users, matching, chat, moderation queue, age assurance, or cloud storage. Sample profiles are fictional placeholders. Do not present it as a live social network.
+## Phone install
+Open the HTTPS GitHub Pages URL in Chrome -> menu (⋮) -> Add to Home screen / Install app.
 
-Before any real launch, work with a responsible adult/developer to add secure authentication, age-appropriate access controls, server-side authorization, report/block enforcement, trained moderation, account/data deletion, privacy policy, and accurate platform disclosures. Do not add precise location sharing or unrestricted stranger messaging. Follow applicable laws and current Google Play policies.
+## Safety / age note
+This is a friendship-only project. Do not enable unrestricted stranger messaging or dating features.
+The profile form only accepts teen age bands for this prototype, but a self-selected age is NOT
+reliable age verification. Do not publicly expose profiles until robust age assurance, moderation,
+privacy review, reporting/blocking, account deletion and child-safety controls are implemented.
+Do not use this starter to collect data from children without appropriate legal/guardian review.
+
+## Google Play
+A PWA is not automatically an Android APK/AAB. Play Store publication requires a separate Android
+packaging/signing workflow and current Play Console policy review. GitHub Pages hosting is not
+Google Play publication.

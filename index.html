@@ -1,99 +1,58 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#0b0b0d">
-  <meta name="description" content="ConnectX — discover shared interests and make friendly connections.">
-  <title>ConnectX — Find your people</title>
-  <link rel="manifest" href="manifest.webmanifest">
-  <link rel="icon" href="icon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="styles.css">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0b0b0d"><meta name="description" content="ConnectX — make friendly connections through shared interests.">
+<title>ConnectX 2.0</title><link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="icon.svg">
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div class="app-shell">
-    <header class="topbar">
-      <a class="brand" href="#" aria-label="ConnectX home"><span>Connect</span><b>X</b></a>
-      <span class="top-label">FRIENDSHIP, YOUR WAY</span>
-      <button class="icon-btn" id="installBtn" hidden aria-label="Install app">＋</button>
-    </header>
-
-    <main>
-      <section class="view active" id="discoverView">
-        <div class="intro">
-          <p class="eyebrow">YOUR COMMUNITY STARTS HERE</p>
-          <h1>Find your <span>people.</span></h1>
-          <p class="sub">Discover friends through shared interests. Keep it kind, keep it safe.</p>
-        </div>
-        <article class="profile-card" id="profileCard">
-          <div class="avatar-art" id="avatarArt"><span id="avatarInitial">A</span><i>✦</i></div>
-          <div class="profile-info">
-            <div class="name-line"><h2 id="profileName">Alex, 16</h2><span class="sample-tag">SAMPLE</span></div>
-            <p id="profileBio">Into sketching, music and weekend football.</p>
-            <div class="chips" id="profileInterests"></div>
-          </div>
-          <p class="demo-note">Demo profile · Illustrative only</p>
-        </article>
-        <div class="actions">
-          <button class="action secondary" id="skipBtn"><span>×</span> Skip</button>
-          <button class="action primary" id="helloBtn"><span>♥</span> Say hi</button>
-        </div>
-        <div class="swipe-hint"><span>← Swipe to skip</span><span>Swipe to say hi →</span></div>
-        <p class="tiny-center" id="feedback" aria-live="polite">No real profiles or messages are connected.</p>
-      </section>
-
-      <section class="view" id="connectionsView">
-        <div class="intro compact">
-          <p class="eyebrow">YOUR ACTIVITY</p>
-          <h1>Friendly <span>vibes.</span></h1>
-          <p class="sub">Profiles you said hello to on this device.</p>
-        </div>
-        <div class="panel" id="connectionList">
-          <div class="empty-icon">♡</div>
-          <h3>No hellos yet</h3>
-          <p>When you tap “Say hi” on a sample profile, it will appear here.</p>
-        </div>
-      </section>
-
-      <section class="view" id="safetyView">
-        <div class="intro compact">
-          <p class="eyebrow">LOOK OUT FOR YOURSELF</p>
-          <h1>Stay <span>safe.</span></h1>
-          <p class="sub">A few good habits make online spaces better for everyone.</p>
-        </div>
-        <div class="safety-list">
-          <article class="safety-card"><b>Protect personal information</b><p>Keep your home address, school, phone number, passwords and live location private.</p></article>
-          <article class="safety-card"><b>Be thoughtful with photos</b><p>Only share content you are comfortable with others seeing. Never send intimate images.</p></article>
-          <article class="safety-card"><b>Pause before meeting anyone</b><p>Do not arrange private meetups with people you only know online. Talk with a trusted adult.</p></article>
-          <article class="safety-card"><b>Block, report and get help</b><p>If someone pressures, threatens or makes you uncomfortable, stop responding and seek help from a trusted adult.</p></article>
-          <article class="safety-card"><b>Keep it respectful</b><p>No bullying, harassment, hate, sexual content or pressure. Treat people kindly.</p></article>
-        </div>
-      </section>
-
-      <section class="view" id="profileView">
-        <div class="intro compact">
-          <p class="eyebrow">YOUR SPACE</p>
-          <h1>About <span>ConnectX.</span></h1>
-        </div>
-        <div class="panel about-panel">
-          <div class="brand-mark">C<span>X</span></div>
-          <h2>ConnectX</h2>
-          <p>A friendship discovery interface concept built around shared interests, kindness and safety.</p>
-          <div class="line"></div>
-          <p class="small-muted">This version is a local demo. It does not create accounts, upload photos, collect location, send messages or connect to real people. Actions stay on this device.</p>
-          <button class="outline-btn" id="resetBtn">Reset demo activity</button>
-        </div>
-      </section>
-    </main>
-
-    <nav class="bottom-nav" aria-label="Main navigation">
-      <button class="nav-item selected" data-view="discoverView"><span>⌕</span><small>Discover</small></button>
-      <button class="nav-item" data-view="connectionsView"><span>♡</span><small>Activity</small></button>
-      <button class="nav-item" data-view="safetyView"><span>◇</span><small>Safety</small></button>
-      <button class="nav-item" data-view="profileView"><span>◉</span><small>About</small></button>
-    </nav>
+<div class="shell">
+<header><a class="logo" href="#"><span>Connect</span><b>X</b><small>2.0</small></a><button id="install" class="mini" hidden>Install</button></header>
+<main>
+<section id="welcome" class="screen active">
+  <div class="hero"><div class="orb">CX</div><p class="eyebrow">FRIENDSHIP • INTERESTS • COMMUNITY</p>
+  <h1>Find your<br><em>people.</em></h1><p class="muted">A friendly space built around shared interests, respect and safety.</p></div>
+  <div class="panel auth-panel">
+    <h2>Join ConnectX</h2><p class="muted small">Create an account or sign in to continue.</p>
+    <label>Email address<input id="email" type="email" autocomplete="email" placeholder="you@example.com"></label>
+    <label>Password<input id="password" type="password" autocomplete="current-password" placeholder="At least 8 characters"></label>
+    <div class="actions"><button id="signup" class="primary">Create account</button><button id="signin" class="secondary">Sign in</button></div>
+    <div class="or"><span>OR</span></div><button id="google" class="google">Continue with Google</button>
+    <p class="fine">By continuing, you agree to respectful use and the community safety rules.</p>
+    <p id="authStatus" class="status" aria-live="polite"></p>
   </div>
-  <div class="toast" id="toast" role="status"></div>
-  <script src="app.js"></script>
-</body>
-</html>
+  <div class="safety-note"><b>Safety first</b><span>ConnectX is for friendship, not dating. Keep private details private. Messaging is not enabled in this starter.</span></div>
+</section>
+
+<section id="profileSetup" class="screen">
+  <p class="eyebrow">STEP 1 OF 2</p><h1>Set up your <em>profile.</em></h1>
+  <div class="panel">
+    <label>Display name<input id="displayName" maxlength="24" placeholder="Choose a nickname"></label>
+    <label>Age group<select id="ageGroup"><option value="">Choose age group</option><option value="13-15">13–15</option><option value="16-17">16–17</option><option value="18+">18+ (not available in this teen community)</option></select></label>
+    <label>Short bio<textarea id="bio" maxlength="120" placeholder="A little about your interests (no phone/address/school details)."></textarea></label>
+    <label>Interests <input id="interests" maxlength="80" placeholder="Music, art, books"></label>
+    <label class="check"><input type="checkbox" id="rulesAgree"> I agree to the safety rules and understand this is a friendship community.</label>
+    <button id="saveProfile" class="primary full">Save profile</button><p id="profileStatus" class="status"></p>
+  </div>
+</section>
+
+<section id="home" class="screen">
+  <div class="home-head"><div><p class="eyebrow">WELCOME TO CONNECTX</p><h1>Good vibes, <em id="helloName">friend.</em></h1></div><button id="logout" class="mini">Sign out</button></div>
+  <div class="tabs"><button class="tab active" data-tab="discover">Discover</button><button class="tab" data-tab="requests">Requests <b id="requestCount">0</b></button><button class="tab" data-tab="myprofile">My profile</button><button class="tab" data-tab="safety">Safety</button></div>
+  <div id="discoverPane" class="pane active"><div class="card"><div class="avatar" id="demoAvatar">C</div><div class="tag">COMMUNITY MEMBER</div><h2 id="demoName">Community friend</h2><p id="demoBio" class="muted">Profiles from the community will appear here after backend moderation is configured.</p><div id="demoInterests" class="chips"></div><p class="fine">Demo card only — live discovery is disabled until moderation and age checks are configured.</p></div><div class="actions"><button id="skip" class="secondary">Skip</button><button id="request" class="primary">Send friend request</button></div><p id="discoverStatus" class="status"></p></div>
+  <div id="requestsPane" class="pane"><div class="panel"><h2>Friend requests</h2><p class="muted">Incoming and outgoing requests will be shown here after a trusted backend is connected.</p><p class="fine">No stranger messaging is available in this starter.</p></div></div>
+  <div id="myprofilePane" class="pane"><div class="panel"><div class="avatar small-avatar" id="myAvatar">C</div><h2 id="myName">Your profile</h2><p id="myBio" class="muted"></p><div id="myInterests" class="chips"></div></div></div>
+  <div id="safetyPane" class="pane"><div class="safety-grid">
+    <article><b>Protect your privacy</b><p>Never post your address, school, phone number, passwords or live location.</p></article>
+    <article><b>Be respectful</b><p>No bullying, harassment, hate, sexual content or pressure.</p></article>
+    <article><b>Block and report</b><p>Stop interacting with anyone who makes you uncomfortable and tell a trusted adult.</p></article>
+    <article><b>Meet safely</b><p>Do not arrange private meetups with people you only know online.</p></article>
+  </div></div>
+</section>
+</main>
+<footer>CONNECT<span>X</span> · FRIENDSHIP ONLY · <a href="PRIVACY.md">PRIVACY</a></footer>
+</div>
+<div id="toast" class="toast" role="status"></div>
+<script type="module" src="app.js"></script>
+</body></html>

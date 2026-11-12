@@ -1,11 +1,1 @@
-{
-  "name": "ConnectX — Friendship",
-  "short_name": "ConnectX",
-  "description": "Discover shared interests and friendly connections.",
-  "start_url": "./",
-  "scope": "./",
-  "display": "standalone",
-  "background_color": "#0b0b0d",
-  "theme_color": "#0b0b0d",
-  "icons": [{"src":"icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}]
-}
+{"name":"ConnectX Friendship Community","short_name":"ConnectX","start_url":"./","scope":"./","display":"standalone","background_color":"#0b0b0d","theme_color":"#0b0b0d","description":"A friendship community focused on shared interests and safety.","icons":[{"src":"icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}]}
