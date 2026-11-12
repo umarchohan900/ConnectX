@@ -1,11 +1,12 @@
-// Replace these placeholder values with your own Firebase Web App config.
-// Firebase Console -> Project settings -> Your apps -> Web app.
-// This file is public in a browser app. Protect data with Firestore Security Rules.
+
+// ConnectX Firebase Configuration
+
 export const firebaseConfig = {
-  apiKey: "PASTE_YOUR_FIREBASE_API_KEY",
-  authDomain: "PASTE_YOUR_PROJECT.firebaseapp.com",
-  projectId: "PASTE_YOUR_PROJECT_ID",
-  storageBucket: "PASTE_YOUR_PROJECT.appspot.com",
-  messagingSenderId: "PASTE_YOUR_MESSAGING_SENDER_ID",
-  appId: "PASTE_YOUR_FIREBASE_APP_ID"
+  apiKey: "AIzaSyAAVvWvb2POTWnQObRnd07Y10-r3j5N158",
+  authDomain: "connectx-55c94.firebaseapp.com",
+  projectId: "connectx-55c94",
+  storageBucket: "connectx-55c94.firebasestorage.app",
+  messagingSenderId: "737665819660",
+  appId: "1:737665819660:web:9b66bf1baef6b5b1cffa29",
+  measurementId: "G-6JRY5CFX3S"
 };
